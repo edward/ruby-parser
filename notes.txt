@@ -1,0 +1,4 @@
+General Ruby parser notes
+  http://github.com/cardinal/cardinal/blob/master/src/parser/grammar.pg
+  Use Nokogiri instead of REXML
+  Push through RubySpec

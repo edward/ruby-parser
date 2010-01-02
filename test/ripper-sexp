@@ -1,0 +1,50 @@
+#!/Users/edward/src/ruby-build/bin/ruby
+
+# WORKING ON
+
+# [no longer as of Sat 21 Nov 2009 16:59:26 PST] 
+#   Hack on Ripper to generate similar xml to what Colm makes
+
+# Sat 21 Nov 2009 16:59:49 PST
+#   Paul Brennan’s idea: 
+# 
+#   experimental = example ruby => colm-parser => xml => "compiled" ruby
+#   if Ripper.sexp(experimental) == Ripper.sexp(example) then win.
+# 
+#   (otherwise, it’ll be easy to see where the parser skipped up)
+
+require "ripper"
+require "rexml/document"
+
+class Ruby
+  def compile(code)
+    # turn the xml into ruby
+    
+    doc = REXML::Document.new(code)
+    
+    return ruby_code
+  end
+end
+
+def compare(real_ast, experimental_ast)
+  if real_parse == experimental_parse
+    puts "Win!"
+  else
+    # show the difference
+    
+    puts "Not yet the same"
+  end
+end
+
+# test_file = ARGV[0]
+test_file = 'test-ruby-code.rb'
+
+ruby_code = File.open(test_file).read
+real_parse = Ripper.sexp(ruby_code)
+
+attempted_parse = `../ruby/ruby.bin < #{test_file}`
+experimental_ruby_code = Ruby.compile(attempted_parse)
+
+experimental_parse = Ripper.sexp(experimental_ruby_code)
+
+compare(real_parse, experimental_parse)
